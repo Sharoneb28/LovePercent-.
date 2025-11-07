@@ -14,9 +14,9 @@ st.markdown("""
         font-family: 'Poppins', sans-serif;
     }
 
-    /* Make input labels visible */
+    /* Label color */
     label, .stTextInput label {
-        color: #ffe6ff !important;  /* Light pinkish white */
+        color: #ffe6ff !important;
         font-weight: 600;
         font-size: 1.05rem;
         text-shadow: 1px 1px 3px rgba(0,0,0,0.3);
@@ -33,7 +33,6 @@ st.markdown("""
         text-align: center;
     }
 
-    /* Placeholder text color */
     ::placeholder {
         color: #7a1fa2 !important;
         opacity: 0.8;
@@ -56,18 +55,41 @@ st.markdown("""
         box-shadow: 0px 6px 15px rgba(255,255,255,0.4);
     }
 
+    /* Custom result message boxes */
+    .success-box, .info-box, .warning-box, .error-box {
+        padding: 1rem;
+        border-radius: 15px;
+        text-align: center;
+        font-weight: 600;
+        color: white;
+        margin-top: 1rem;
+        box-shadow: 0px 0px 15px rgba(255,255,255,0.2);
+    }
+
+    .success-box {
+        background: linear-gradient(90deg, #ff9a9e, #fad0c4);
+    }
+    .info-box {
+        background: linear-gradient(90deg, #a18cd1, #fbc2eb);
+    }
+    .warning-box {
+        background: linear-gradient(90deg, #f6d365, #fda085);
+        color: #4b0082;
+    }
+    .error-box {
+        background: linear-gradient(90deg, #ff758c, #ff7eb3);
+    }
+
     /* Titles */
     h1, h2, h3 {
         font-family: 'Pacifico', cursive;
         text-shadow: 2px 2px 6px rgba(255,255,255,0.3);
     }
 
-    /* Footer */
     footer, .stCaption {
         color: rgba(255,255,255,0.7);
         text-align: center;
     }
-
     </style>
 """, unsafe_allow_html=True)
 
@@ -75,25 +97,27 @@ st.markdown("""
 st.markdown("<h1 style='text-align: center;'>💜 Love Compatibility Calculator 💜</h1>", unsafe_allow_html=True)
 st.write("✨ Find out how compatible you are with your crush! ✨")
 
-# 💌 Inputs (now clearly visible)
+# 💌 Inputs
 name = st.text_input("Enter your name:")
 crush_name = st.text_input("Enter your crush's name:")
 
-# 💘 Button
+# 💘 Button and results
 if st.button("💞 Check Compatibility 💞"):
     if name and crush_name:
         percentage = random.randint(1, 100)
-        st.markdown(f"<h2 style='text-align:center;'>💖 {name} and {crush_name} have {percentage}% love compatibility 💖</h2>", unsafe_allow_html=True)
-        
+        st.markdown(
+            f"<h2 style='text-align:center;'>💖 {name} and {crush_name} have {percentage}% love compatibility 💖</h2>",
+            unsafe_allow_html=True,
+        )
+
         if percentage > 70:
-            st.success("You love each other like Romeo and Juliet! 💞")
+            st.markdown("<div class='success-box'>You love each other like Romeo and Juliet! 💞</div>", unsafe_allow_html=True)
         elif percentage > 40:
-            st.info("You have a good chance together! 💕")
+            st.markdown("<div class='info-box'>You have a good chance together! 💕</div>", unsafe_allow_html=True)
         else:
-            st.warning("Not very compatible... but love can grow! 🌱")
+            st.markdown("<div class='warning-box'>Not very compatible... but love can grow! 🌱</div>", unsafe_allow_html=True)
     else:
-        st.error("Please enter both names to continue 💬")
+        st.markdown("<div class='error-box'>Please enter both names to continue 💬</div>", unsafe_allow_html=True)
 
 st.markdown("---")
 st.caption("💘 Made with love using Streamlit 💘")
-
